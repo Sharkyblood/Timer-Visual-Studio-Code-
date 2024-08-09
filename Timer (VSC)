@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 48px;
+            margin: 0;
+        }
+
+        #timer {
+            padding: 10px 20px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            background-color: #1e1e1e;
+        }
+    </style>
+    <title>Count Up Timer</title>
+</head>
+<body>
+    <div id="timer">00:00</div>
+
+    <script>
+        let seconds = 0;
+        let minutes = 0;
+        let timerInterval = null;
+
+        function updateTimer() {
+            seconds++;
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+            }
+
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+            document.getElementById('timer').textContent = `${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        function toggleTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            } else {
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F4') {
+                toggleTimer();
+            }
+        });
+    </script>
+</body>
+</html>
